@@ -65,8 +65,6 @@
     <category>TextEditor</category>
   </categories>
   <icon type="remote" height="256" width="256">https://raw.githubusercontent.com/flathub/com.sublimehq.SublimeText/master/com.sublimehq.SublimeText-256.png</icon>
-  <icon type="remote" height="128" width="128">https://raw.githubusercontent.com/flathub/com.sublimehq.SublimeText/master/com.sublimehq.SublimeText-128.png</icon>
-  <icon type="remote" height="48" width="48">https://raw.githubusercontent.com/flathub/com.sublimehq.SublimeText/master/com.sublimehq.SublimeText-48.png</icon>
   <releases>
     <release date="2024-05-21" version="4200">
       <description>
