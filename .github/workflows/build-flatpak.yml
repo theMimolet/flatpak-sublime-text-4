@@ -1,14 +1,14 @@
 name: Build and Publish Flatpak
 
 on:
-    workflow_run:
-        types:
-            - completed
-    workflow_dispatch:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
-    contents: write
-
+  contents: read
+  pages: write
+  id-token: write
 jobs:
     build:
         runs-on: ubuntu-latest
