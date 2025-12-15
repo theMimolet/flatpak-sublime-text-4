@@ -12,6 +12,7 @@ Icon=com.sublimehq.SublimeText
 Categories=TextEditor;Development;
 StartupNotify=true
 StartupWMClass=sublime_text
+X-KDE-StartupWMClass=sublime_text
 Actions=new-window;new-file;
 
 [Desktop Action new-window]
