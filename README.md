@@ -1,4 +1,4 @@
-# Sublime Text 4 for Flathub
+# Sublime Text 4 as Flatpak
 
 This repo only serves as testing grounds before making any Pull Requests to Flathub
 
@@ -10,7 +10,7 @@ There is a repo made for **testing purposes**.
 It can be taken down at any time if there are any issues with it existing.
 
 Here are the commands to install it :
-```
+```sh
 flatpak remote-add --user --no-gpg-verify st4-testing https://themimolet.github.io/flatpak-sublime-text-4/
 flatpak install st4-testing com.sublimehq.SublimeText
 flatpak run com.sublimehq.SublimeText
