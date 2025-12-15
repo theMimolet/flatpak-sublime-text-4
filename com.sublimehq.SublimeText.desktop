@@ -19,10 +19,8 @@ Actions=new-window;new-file;
 Name=New Window
 Name[fr]=Nouvelle fenêtre
 Exec=subl --launch-or-new-window
-OnlyShowIn=Unity;
 
 [Desktop Action new-file]
 Name=New File
 Name[fr]=Nouveau fichier
 Exec=subl --command new_file
-OnlyShowIn=Unity;

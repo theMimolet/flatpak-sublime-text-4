@@ -10,8 +10,6 @@ finish-args:
 - --share=ipc
 - --share=network
 - --device=dri
-#- --socket=wayland
-#- --socket=fallback-x11
 - --socket=x11
 - --talk-name=org.gnome.SettingsDaemon
 - --filesystem=host
@@ -34,16 +32,11 @@ modules:
     # Extract upstream package
     - mkdir -p deb-package export/share
     - ar p sublime.deb data.tar.xz | tar -xJf - -C deb-package
-    # Install desktop entry and icons
-    - mv deb-package/usr/share/{applications,icons} export/share/
-    - rename sublime_text ${FLATPAK_ID} export/share/applications/*.desktop
+    # Install icons only (we'll use our custom desktop file)
+    - mv deb-package/usr/share/icons export/share/
     - rename sublime-text ${FLATPAK_ID} export/share/icons/hicolor/*/apps/*
-    #- desktop-file-edit --set-key=Exec --set-value='subl %F' --set-key=Icon
-    #  --set-value=${FLATPAK_ID} export/share/applications/${FLATPAK_ID}.desktop
-    - desktop-file-edit --set-key=Exec --set-value='subl %F' --set-key=Icon --set-value=${FLATPAK_ID} --set-key=StartupWMClass --set-value=sublime_text export/share/applications/${FLATPAK_ID}.desktop
     # Install the app
     - mv deb-package/opt/sublime_text ./
-    - ln -sr /app/sublime_merge/extra/sublime_merge ./sublime_merge
     # Cleanup
     - rm -rf deb-package sublime.deb
   - type: script
@@ -76,15 +69,15 @@ modules:
     path: com.sublimehq.SublimeText.desktop
   - type: file
     path: com.sublimehq.SublimeText.appdata.xml
-  - type: file
-    path: com.sublimehq.SublimeText-256.png
+  #- type: file
+  #  path: com.sublimehq.SublimeText-256.png
   build-commands:
   - mkdir -p /app/lib
   - install -Dm755 apply_extra -t /app/bin
   - install -Dm755 subl /app/bin/subl
   - install -Dm644 com.sublimehq.SublimeText.desktop /app/share/applications/com.sublimehq.SublimeText.desktop
   - install -Dm644 com.sublimehq.SublimeText.appdata.xml /app/share/appdata/com.sublimehq.SublimeText.appdata.xml
-  - install -Dm644 com.sublimehq.SublimeText-256.png /app/share/icons/hicolor/256x256/apps/com.sublimehq.SublimeText.png
+  #- install -Dm644 com.sublimehq.SublimeText-256.png /app/share/icons/hicolor/256x256/apps/com.sublimehq.SublimeText.png
   # This creates the mount point for the extensions.
   - mkdir -p /app/utils
   - mkdir -p /app/sublime_merge

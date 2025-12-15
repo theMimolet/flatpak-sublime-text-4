@@ -6,7 +6,9 @@ Most of the work has already been done by ptomato, ryanpcmcquen, hfiguiere and b
 
 ## The repo
 
-There is a repo made for **testing purposes**.
+There is a repo made for **testing purposes** and might not be ready for production just yet !
+Your feedback is important !
+
 It can be taken down at any time if there are any issues with it existing.
 
 Here are the commands to install it :

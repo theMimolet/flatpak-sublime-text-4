@@ -55,8 +55,12 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <caption>Sublime Text 4 Screenshot</caption>
+      <caption>Sublime Text 4 Screenshot in Gnome</caption>
       <image type="source">https://www.sublimetext.com/screenshots/sublime_text_4.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>Sublime Text 4 Screenshot in KDE</caption>
+      <image type="source">https://github.com/theMimolet/flatpak-sublime-text-4/blob/main/screenshots/screenshot-kde.png</image>
     </screenshot>
   </screenshots>
   <categories>
