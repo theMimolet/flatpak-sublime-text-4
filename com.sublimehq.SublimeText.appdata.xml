@@ -60,7 +60,7 @@
     </screenshot>
     <screenshot type="default">
       <caption>Sublime Text 4 Screenshot in KDE</caption>
-      <image type="source">https://github.com/theMimolet/flatpak-sublime-text-4/blob/main/screenshots/screenshot-kde.png</image>
+      <image type="source">https://github.com/theMimolet/com.sublimehq.SublimeText/blob/main/screenshots/screenshot-kde.png</image>
     </screenshot>
   </screenshots>
   <categories>
