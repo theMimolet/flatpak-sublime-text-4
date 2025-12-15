@@ -7,15 +7,15 @@ sdk: org.freedesktop.Sdk
 
 separate-locales: false
 finish-args:
-  - --share=ipc
-  - --share=network
-  - --device=dri
-  - --socket=fallback-x11
-  - --socket=wayland
-  - --talk-name=org.gnome.SettingsDaemon
-  - --filesystem=host
-  - --env=PATH=/app/utils/bin:/app/sublime_merge/bin:/app/bin:/usr/bin
-  - --env=PYTHONPATH=/app/utils/lib/python3.8/site-packages
+- --share=ipc
+- --share=network
+- --device=dri
+- --socket=fallback-x11
+- --socket=wayland
+- --talk-name=org.gnome.SettingsDaemon
+- --filesystem=host
+- --env=PATH=/app/utils/bin:/app/sublime_merge/bin:/app/bin:/usr/bin
+- --env=PYTHONPATH=/app/utils/lib/python3.8/site-packages
 
 add-extensions:
   com.sublimemerge.App:
@@ -23,66 +23,67 @@ add-extensions:
     add-ld-path: lib
 
 modules:
-  - name: sublime
-    buildsystem: simple
-    sources:
-      - type: script
-        dest-filename: apply_extra
-        commands:
-          - FLATPAK_ID=com.sublimehq.SublimeText
-          # Extract upstream package
-          - mkdir -p deb-package export/share
-          - ar p sublime.deb data.tar.xz | tar -xJf - -C deb-package
-          # Install desktop entry and icons
-          - mv deb-package/usr/share/{applications,icons} export/share/
-          - rename sublime_text ${FLATPAK_ID} export/share/applications/*.desktop
-          - rename sublime-text ${FLATPAK_ID} export/share/icons/hicolor/*/apps/*
-          - desktop-file-edit --set-key=Exec --set-value='subl %F' --set-key=Icon
-            --set-value=${FLATPAK_ID} export/share/applications/${FLATPAK_ID}.desktop
-          # Install the app
-          - mv deb-package/opt/sublime_text ./
-          - ln -sr /app/sublime_merge/extra/sublime_merge ./sublime_merge
-          # Cleanup
-          - rm -rf deb-package sublime.deb
-      - type: script
-        dest-filename: subl
-        commands:
-          - exec /app/extra/sublime_text/sublime_text --fwdargv0 "$0" "$@"
-      - type: extra-data
-        only-arches: [x86_64]
-        filename: sublime.deb
-        url: https://download.sublimetext.com/files/sublime-text_build-4200_amd64.deb
-        sha256: 79a687ffd749004eb4360243dc2133a68bbc8243f890ff3f8f5b00835870c7ea
-        size: 15948480
-        x-checker-data:
-          type: html
-          url: https://www.sublimetext.com/download_thanks
-          version-pattern: https://download.sublimetext.com/files/sublime-text_build-([\d\.-]*)_amd64.deb
-          url-template: https://download.sublimetext.com/files/sublime-text_build-${version}_amd64.deb
-      - type: extra-data
-        only-arches: [aarch64]
-        filename: sublime.deb
-        url: https://download.sublimetext.com/files/sublime-text_build-4200_arm64.deb
-        sha256: cedc9b391c31e12d60070eb2a43b31fa81ec7fb8fd6d75c000a035a7749b51f9
-        size: 15315956
-        x-checker-data:
-          type: html
-          url: https://www.sublimetext.com/download_thanks
-          version-pattern: https://download.sublimetext.com/files/sublime-text_build-([\d\.-]*)_arm64.deb
-          url-template: https://download.sublimetext.com/files/sublime-text_build-${version}_arm64.deb
-      - type: file
-        path: com.sublimehq.SublimeText.desktop
-      - type: file
-        path: com.sublimehq.SublimeText.appdata.xml
-      - type: file
-        path: com.sublimehq.SublimeText-256.png
-    build-commands:
-      - mkdir -p /app/lib
-      - install -Dm755 apply_extra -t /app/bin
-      - install -Dm755 subl /app/bin/subl
-      - install -Dm644 com.sublimehq.SublimeText.desktop /app/share/applications/com.sublimehq.SublimeText.desktop
-      - install -Dm644 com.sublimehq.SublimeText.appdata.xml /app/share/appdata/com.sublimehq.SublimeText.appdata.xml
-      - install -Dm644 com.sublimehq.SublimeText-256.png /app/share/icons/hicolor/256x256/apps/com.sublimehq.SublimeText.png
-      # This creates the mount point for the extensions.
-      - mkdir -p /app/utils
-      - mkdir -p /app/sublime_merge
+- name: sublime
+  buildsystem: simple
+  sources:
+  - type: script
+    dest-filename: apply_extra
+    commands:
+    - FLATPAK_ID=com.sublimehq.SublimeText
+    # Extract upstream package
+    - mkdir -p deb-package export/share
+    - ar p sublime.deb data.tar.xz | tar -xJf - -C deb-package
+    # Install desktop entry and icons
+    - mv deb-package/usr/share/{applications,icons} export/share/
+    - rename sublime_text ${FLATPAK_ID} export/share/applications/*.desktop
+    - rename sublime-text ${FLATPAK_ID} export/share/icons/hicolor/*/apps/*
+    #- desktop-file-edit --set-key=Exec --set-value='subl %F' --set-key=Icon
+    #  --set-value=${FLATPAK_ID} export/share/applications/${FLATPAK_ID}.desktop
+    - desktop-file-edit --set-key=Exec --set-value='subl %F' --set-key=Icon --set-value=${FLATPAK_ID} --set-key=StartupWMClass --set-value=sublime_text export/share/applications/${FLATPAK_ID}.desktop
+    # Install the app
+    - mv deb-package/opt/sublime_text ./
+    - ln -sr /app/sublime_merge/extra/sublime_merge ./sublime_merge
+    # Cleanup
+    - rm -rf deb-package sublime.deb
+  - type: script
+    dest-filename: subl
+    commands:
+    - exec /app/extra/sublime_text/sublime_text --fwdargv0 "$0" "$@"
+  - type: extra-data
+    only-arches: [ x86_64 ]
+    filename: sublime.deb
+    url: https://download.sublimetext.com/files/sublime-text_build-4200_amd64.deb
+    sha256: 79a687ffd749004eb4360243dc2133a68bbc8243f890ff3f8f5b00835870c7ea
+    size: 15948480
+    x-checker-data:
+      type: html
+      url: https://www.sublimetext.com/download_thanks
+      version-pattern: https://download.sublimetext.com/files/sublime-text_build-([\d\.-]*)_amd64.deb
+      url-template: https://download.sublimetext.com/files/sublime-text_build-${version}_amd64.deb
+  - type: extra-data
+    only-arches: [ aarch64 ]
+    filename: sublime.deb
+    url: https://download.sublimetext.com/files/sublime-text_build-4200_arm64.deb
+    sha256: cedc9b391c31e12d60070eb2a43b31fa81ec7fb8fd6d75c000a035a7749b51f9
+    size: 15315956
+    x-checker-data:
+      type: html
+      url: https://www.sublimetext.com/download_thanks
+      version-pattern: https://download.sublimetext.com/files/sublime-text_build-([\d\.-]*)_arm64.deb
+      url-template: https://download.sublimetext.com/files/sublime-text_build-${version}_arm64.deb
+  - type: file
+    path: com.sublimehq.SublimeText.desktop
+  - type: file
+    path: com.sublimehq.SublimeText.appdata.xml
+  - type: file
+    path: com.sublimehq.SublimeText-256.png
+  build-commands:
+  - mkdir -p /app/lib
+  - install -Dm755 apply_extra -t /app/bin
+  - install -Dm755 subl /app/bin/subl
+  - install -Dm644 com.sublimehq.SublimeText.desktop /app/share/applications/com.sublimehq.SublimeText.desktop
+  - install -Dm644 com.sublimehq.SublimeText.appdata.xml /app/share/appdata/com.sublimehq.SublimeText.appdata.xml
+  - install -Dm644 com.sublimehq.SublimeText-256.png /app/share/icons/hicolor/256x256/apps/com.sublimehq.SublimeText.png
+  # This creates the mount point for the extensions.
+  - mkdir -p /app/utils
+  - mkdir -p /app/sublime_merge
