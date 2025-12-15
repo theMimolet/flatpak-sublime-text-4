@@ -4,20 +4,24 @@ Type=Application
 Name=Sublime Text
 GenericName=Text Editor
 Comment=Sophisticated text editor for code, markup and prose
+Comment[fr]=Éditeur de texte sophistiqué pour le code, le balisage et la prose
 Exec=subl %F
 Terminal=false
 MimeType=text/plain;
 Icon=com.sublimehq.SublimeText
 Categories=TextEditor;Development;
 StartupNotify=true
+StartupWMClass=sublime_text
 Actions=new-window;new-file;
 
 [Desktop Action new-window]
 Name=New Window
+Name[fr]=Nouvelle fenêtre
 Exec=subl --launch-or-new-window
 OnlyShowIn=Unity;
 
 [Desktop Action new-file]
 Name=New File
+Name[fr]=Nouveau fichier
 Exec=subl --command new_file
 OnlyShowIn=Unity;
