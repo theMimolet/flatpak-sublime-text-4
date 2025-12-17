@@ -33,8 +33,7 @@ modules:
     - mkdir -p extract export/share
     - tar -xJf sublime.tar.xz -C extract
     # Install icons only (we'll use our custom desktop file)
-    - mv extract/sublime_text/Icon export/share/
-    - rename sublime-text ${FLATPAK_ID} export/share/icons/hicolor/*/apps/*
+    - mv extract/sublime_text/Icon export/share/icons/hicolor/${FLATPAK_ID}/apps/${FLATPAK_ID}
     # Install the app
     - mv extract/sublime_text ./
     - ln -sr /app/sublime_merge/extra/sublime_merge ./sublime_merge
