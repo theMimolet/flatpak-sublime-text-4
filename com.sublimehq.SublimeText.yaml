@@ -30,42 +30,42 @@ modules:
     commands:
     - FLATPAK_ID=com.sublimehq.SublimeText
     # Extract upstream package
-    - mkdir -p deb-package export/share
-    - ar p sublime.deb data.tar.xz | tar -xJf - -C deb-package
+    - mkdir -p extract export/share
+    - tar -xJf sublime.tar.xz -C extract
     # Install icons only (we'll use our custom desktop file)
-    - mv deb-package/usr/share/icons export/share/
+    - mv extract/sublime_text/Icon export/share/
     - rename sublime-text ${FLATPAK_ID} export/share/icons/hicolor/*/apps/*
     # Install the app
-    - mv deb-package/opt/sublime_text ./
+    - mv extract/sublime_text ./
     - ln -sr /app/sublime_merge/extra/sublime_merge ./sublime_merge
     # Cleanup
-    - rm -rf deb-package sublime.deb
+    - rm -rf extract sublime.tar.xz
   - type: script
     dest-filename: subl
     commands:
     - exec /app/extra/sublime_text/sublime_text --fwdargv0 "$0" "$@"
   - type: extra-data
     only-arches: [ x86_64 ]
-    filename: sublime.deb
-    url: https://download.sublimetext.com/files/sublime-text_build-4200_amd64.deb
-    sha256: 79a687ffd749004eb4360243dc2133a68bbc8243f890ff3f8f5b00835870c7ea
-    size: 15948480
+    filename: sublime.tar.xz
+    url: https://download.sublimetext.com/sublime_text_build_4200_x64.tar.xz
+    sha256: 36f69c551ad18ee46002be4d9c523fe545d93b67fea67beea731e724044b469f
+    size: 16340980
     x-checker-data:
       type: html
       url: https://www.sublimetext.com/download_thanks
-      version-pattern: https://download.sublimetext.com/files/sublime-text_build-([\d\.-]*)_amd64.deb
-      url-template: https://download.sublimetext.com/files/sublime-text_build-${version}_amd64.deb
+      version-pattern: https://download.sublimetext.com/sublime_text_build_([\d\.-]*)_x64.tar.xz
+      url-template: https://download.sublimetext.com/sublime_text_build_${version}_x64.tar.xz
   - type: extra-data
     only-arches: [ aarch64 ]
-    filename: sublime.deb
-    url: https://download.sublimetext.com/files/sublime-text_build-4200_arm64.deb
-    sha256: cedc9b391c31e12d60070eb2a43b31fa81ec7fb8fd6d75c000a035a7749b51f9
-    size: 15315956
+    filename: sublime.tar.xz
+    url: https://download.sublimetext.com/sublime_text_build_4200_arm64.tar.xz
+    sha256: cf4b6aa74ea2a2aab02e144599cf9e4a423cbb9543c221f7da1095a95495566a
+    size: 15743920
     x-checker-data:
       type: html
       url: https://www.sublimetext.com/download_thanks
-      version-pattern: https://download.sublimetext.com/files/sublime-text_build-([\d\.-]*)_arm64.deb
-      url-template: https://download.sublimetext.com/files/sublime-text_build-${version}_arm64.deb
+      version-pattern: https://download.sublimetext.com/sublime_text_build_([\d\.-]*)_arm64.tar.xz
+      url-template: https://download.sublimetext.com/sublime_text_build_${version}_arm64.tar.xz
   - type: file
     path: com.sublimehq.SublimeText.desktop
   - type: file
